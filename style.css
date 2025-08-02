@@ -89,6 +89,9 @@ ul.breadcrumb-menu li a {
   height: 45.5px;
 }
 
+.button-nav {
+  color: aqua;
+}
 
 ul.breadcrumb-menu li:first-child {
   width: 100px; 
@@ -102,6 +105,8 @@ ul.breadcrumb-menu li:first-child {
 
 ul.breadcrumb-menu li:first-child a:hover {
   text-transform: uppercase;
+  background-color: black;
+  color: white;
 }
 
 @media only screen and (max-width: 450px) {
@@ -123,7 +128,6 @@ ul.breadcrumb-menu li:first-child a:hover {
 #instruction-text {
   font-family: 'MyFont';
   font-size: 22px;
-  font-style: italic;
 }
 
 #navigation-to-galleries {
@@ -138,9 +142,11 @@ ul.breadcrumb-menu li:first-child a:hover {
   font-family: 'MyFont';
   font-size: 5rem;
   background-color: white;
-  border: solid black 2px;
+  border: solid rgb(203, 203, 203) 0.5px;
   padding: 5px;
   margin-top: 20px;
+  box-shadow: 0px 0px 10px rgb(207, 207, 207);
+  border-radius: 10px; 
 }
 .words dd { 
   font-family: 'MyFont';
@@ -159,65 +165,6 @@ ul.breadcrumb-menu li:first-child a:hover {
     max-width: 100%;
     }
 }
-
-/************* Galleries *************/
-
-.gallery {
-  max-width: 100%;
-  margin-top: 10px;
-  display: flex;
-  align-items: stretch;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.gallery-item {
-  min-width: 300px;
-  max-width: 400px;
-  flex: 3 4 250px;
-  margin-bottom: 10px;
-}
-
-
-.wrapper {
-  min-height: 100vh;
-  padding: 2rem 0px;
-  font-family: 'MyFont';
-  font-size: 12pt;
-  text-align: left;
-}
-
-
-.gallery-item figure {
-  padding: 0px;
-  margin: 0px;
-  border: black solid 2px;
-  overflow: hidden;
-}
-
-.gallery-item figure:hover img {
-  transform: scale(7);
-  overflow: hidden;
-}
-
-.gallery-item figure img {
-  display: block;
-  max-width: 100%;
-}
-
-
-.gallery-item ol {
- list-style-type: none;
- padding: 10px;
- margin-top: 5px;
- margin-bottom: 0;
- display: block;
- background: white;
- text-align: left;
- font-size: 10pt;
-}
-
 
 /************* About Page *************/
 
