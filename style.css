@@ -1,0 +1,314 @@
+@font-face {
+  font-family: MyFont;
+  src: url("font/Hershey-Noailles-Futura-Duplex-Regular.ttf") format('truetype');
+}
+/*béton brut and art brut*/
+
+html {
+  height: 100%;
+   box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 30px;
+  min-height: 100%;
+  padding-bottom: 6rem;
+  flex-direction: column;
+  background-color: white;
+  display: flex;
+  position: relative;
+}
+
+main {
+  padding-bottom: 5px;
+  min-height: 100%;
+  flex: 1;
+  max-width: 100%;
+  display: block;
+}
+
+/*link styling*/
+
+a:link, a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: black;
+  text-transform: uppercase;
+}
+
+a:active {
+  color: black;
+  text-transform: uppercase;
+}
+
+/********* Navigation Bar *********/
+.navigation {
+  font-family: 'MyFont';
+  font-size: 22px;
+  display: flex;
+  justify-content: space-between;
+}
+
+ul.breadcrumb-menu {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  top: 0;
+  margin: 0;
+  padding: 0;  
+}
+
+ul.breadcrumb-menu li {
+  margin-right: 5px;
+}
+
+ul.breadcrumb-menu li+li:before {
+  padding: 2px;
+  color: black;
+  content: "/\00a0";
+}
+
+ul.breadcrumb-menu li a {
+  text-decoration: none; 
+}
+
+.about-link {
+  font-family: 'MyFont';
+  text-decoration: none;
+  margin-left: auto;
+  width: 100px; 
+  padding: 10px;
+  border: 2px black solid;
+  border-radius: 80px;
+  text-align: center;
+  height: 45.5px;
+}
+
+
+ul.breadcrumb-menu li:first-child {
+  width: 100px; 
+  padding: 10px;
+  border: 2px black solid;
+  border-radius: 80px;
+  text-align: center;
+  height: 45.5px;
+}
+
+
+ul.breadcrumb-menu li:first-child a:hover {
+  text-transform: uppercase;
+}
+
+@media only screen and (max-width: 450px) {
+  
+  ul.breadcrumb-menu {
+    list-style: none;
+    display: block;
+    width: 150px;
+  }
+
+  ul.breadcrumb-menu li:first-child {
+    margin-bottom: 10px;
+  }
+
+
+}
+/************* Homepage Word List *************/
+
+#instruction-text {
+  font-family: 'MyFont';
+  font-size: 22px;
+  font-style: italic;
+}
+
+#navigation-to-galleries {
+  display: block;
+  padding-top: 5px;
+  position: absolute;
+  max-width: 100%;
+}
+
+
+.words dt {
+  font-family: 'MyFont';
+  font-size: 5rem;
+  background-color: white;
+  border: solid black 2px;
+  padding: 5px;
+  margin-top: 20px;
+}
+.words dd { 
+  font-family: 'MyFont';
+  font-size: 22px;
+  text-align: left;
+  display: block;
+  width: 85%;
+  padding-bottom: 5px;
+  padding-top: 3px;
+}
+
+@media only screen and (max-width: 600px) {
+  /* for phones */
+  .words dt {
+    font-size: 11vw;
+    max-width: 100%;
+    }
+}
+
+/************* Galleries *************/
+
+.gallery {
+  max-width: 100%;
+  margin-top: 10px;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.gallery-item {
+  min-width: 300px;
+  max-width: 400px;
+  flex: 3 4 250px;
+  margin-bottom: 10px;
+}
+
+
+.wrapper {
+  min-height: 100vh;
+  padding: 2rem 0px;
+  font-family: 'MyFont';
+  font-size: 12pt;
+  text-align: left;
+}
+
+
+.gallery-item figure {
+  padding: 0px;
+  margin: 0px;
+  border: black solid 2px;
+  overflow: hidden;
+}
+
+.gallery-item figure:hover img {
+  transform: scale(7);
+  overflow: hidden;
+}
+
+.gallery-item figure img {
+  display: block;
+  max-width: 100%;
+}
+
+
+.gallery-item ol {
+ list-style-type: none;
+ padding: 10px;
+ margin-top: 5px;
+ margin-bottom: 0;
+ display: block;
+ background: white;
+ text-align: left;
+ font-size: 10pt;
+}
+
+
+/************* About Page *************/
+
+#about-page {
+  height: 100%;
+}
+
+.about-text {
+  font-family: 'MyFont';
+  font-size:8vh;
+  text-align: justify;
+  margin: auto 0;
+  margin-top: 30px;
+  word-break: break-all;
+}
+
+.palabras-julio {
+  font-size: 20px;
+  font-family: 'MyFont';
+  word-break: break-all;
+}
+
+#subm-text {
+  font-family: 'MyFont';
+  font-size: 20vh;
+  text-align: justify;
+  margin: auto;
+  word-break: break-all;
+}
+
+#subm-subtext {
+  font-family: 'MyFont';
+  font-size: 18pt;
+  text-align: justify;
+  margin: 5px;
+  border: solid black 2px;
+  word-break: break-word;
+  overflow: wrap;
+  bottom: 0px;
+}
+
+.footer-content {
+  height: 12px;
+  font-family: 'MyFont';
+  font-size: 12pt;
+  text-align: right;
+  margin-top: 50px;
+  margin-bottom: 0px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  /* for phones */
+  .about-text {
+    font-family: 'MyFont';
+    font-size: 2.2rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+  /* for phones */
+    #submission-page {
+  max-height: 100%;
+  }
+  #subm-text {
+    font-family: 'MyFont';
+    font-size: 5.8rem;
+    }
+}
+
+/************* Footer *************/
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left:0;
+  width: 100%;
+  background-color: white;
+  position: absolute;
+  height: 2.5rem;
+  margin-bottom: 5px;
+  margin-right: 40px;
+  font-family: 'MyFont';
+  font-size: 12pt;
+  text-align: right;
+
+}
