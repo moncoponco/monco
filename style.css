@@ -1,6 +1,6 @@
 @font-face {
   font-family: MyFont;
-  src: url("font/Hershey-Noailles-Futura-Duplex-Regular.ttf") format('truetype');
+  src: url("font/Graphik-Regular.otf") format('truetype');
 }
 /*béton brut and art brut*/
 
@@ -33,15 +33,28 @@ main {
   display: block;
 }
 
+/*style definition*/
+:root {
+  --primary-color: #000000;
+  --hover-color: rgb(0, 179, 255);
+  --accent-color: #c1c1c1;
+  --text-color: #000000;
+  --background-color: #ffffff;
+}
+
+
 /*link styling*/
 
 a:link, a:visited {
+  color: var(--text-color);
 }
 
 a:hover {
+    color: var(--text-color);
 }
 
 a:active {
+    color: var(--text-color);
 }
 
 /********* Navigation Bar *********/
@@ -69,7 +82,7 @@ ul.breadcrumb-menu li {
 
 ul.breadcrumb-menu li+li:before {
   padding: 2px;
-  color: black;
+  color: var(--text-color);
   content: "/\00a0";
 }
 
@@ -77,36 +90,22 @@ ul.breadcrumb-menu li a {
   text-decoration: none; 
 }
 
-.about-link {
-  font-family: 'MyFont';
-  text-decoration: none;
-  margin-left: auto;
-  width: 100px; 
-  padding: 10px;
-  border: 2px black solid;
-  border-radius: 80px;
-  text-align: center;
-  height: 45.5px;
-}
-
-.button-nav {
-  color: aqua;
-}
 
 ul.breadcrumb-menu li:first-child {
-  width: 100px; 
-  padding: 10px;
-  border: 2px black solid;
+  width: auto; 
+  border: 2px solid var(--primary-color);
   border-radius: 80px;
-  text-align: center;
-  height: 45.5px;
+  justify-content: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-items: center;
+  display: flex;
+  height: 40px;
 }
 
-
-ul.breadcrumb-menu li:first-child a:hover {
-  text-transform: uppercase;
-  background-color: black;
-  color: white;
+ul.breadcrumb-menu li:first-child:hover{
+  transform: scale(1.05);
+  transition: transform 0.1s ease;
 }
 
 @media only screen and (max-width: 450px) {
@@ -124,11 +123,36 @@ ul.breadcrumb-menu li:first-child a:hover {
 
 }
 /************* Homepage Word List *************/
+#home-page {
+  background-color: #979797;
+}
 
-#instruction-text {
+.intro-text {
   font-family: 'MyFont';
   font-size: 22px;
 }
+
+.button-list {
+  display: flex;
+  margin-top: 10px;
+  gap: 20px;
+  width: 100%;
+}
+
+.home-button {
+  font-family: myFont;
+  text-decoration: none;
+  font-size: 100px;
+  padding: 0px 20px 0px 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 100px;
+  transition: transform 0.1s ease;
+}
+
+.home-button:hover{
+  transform: scale(1.1);
+}
+
 
 #navigation-to-galleries {
   display: block;
@@ -140,12 +164,8 @@ ul.breadcrumb-menu li:first-child a:hover {
 
 .words dt {
   font-family: 'MyFont';
-  font-size: 5rem;
-  background-color: white;
-  border: solid rgb(203, 203, 203) 0.5px;
-  padding: 5px;
+  font-size: 2rem;
   margin-top: 20px;
-  box-shadow: 0px 0px 10px rgb(207, 207, 207);
   border-radius: 10px; 
 }
 .words dd { 
