@@ -2,11 +2,10 @@
   font-family: MyFont;
   src: url("font/Graphik-Regular.otf") format('truetype');
 }
-/*béton brut and art brut*/
 
 html {
-  height: 100%;
-   box-sizing: border-box;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 *,
@@ -16,260 +15,169 @@ html {
 }
 
 body {
-  margin: 30px;
-  min-height: 100%;
-  padding-bottom: 6rem;
-  flex-direction: column;
-  background-color: white;
-  display: flex;
-  position: relative;
+  background-color: var(--background-color, #ffffff); 
+  margin: 0; 
 }
 
-main {
-  padding-bottom: 5px;
-  min-height: 100%;
-  flex: 1;
-  max-width: 100%;
-  display: block;
-}
 
 /*style definition*/
 :root {
   --primary-color: #000000;
-  --hover-color: rgb(0, 179, 255);
-  --accent-color: #c1c1c1;
+  --hover-color: rgb(113, 113, 113);
+  --accent-color: #0d19ff;
   --text-color: #000000;
   --background-color: #ffffff;
+  --line-color: rgb(0, 0, 0);
 }
 
+/************* Layout Container (MAIN) *************/
 
-/*link styling*/
-
-a:link, a:visited {
-  color: var(--text-color);
-}
-
-a:hover {
-    color: var(--text-color);
-}
-
-a:active {
-    color: var(--text-color);
-}
-
-/********* Navigation Bar *********/
-.navigation {
-  font-family: 'MyFont';
-  font-size: 22px;
+main {
   display: flex;
-  justify-content: space-between;
+  min-height: 100vh; 
+  max-width: 100%;
 }
 
-ul.breadcrumb-menu {
-  width: 100%;
-  list-style: none;
+/************* Left Container *************/
+
+.left-side {
   display: flex;
-  justify-content: left;
-  align-items: center;
-  top: 0;
-  margin: 0;
-  padding: 0;  
-}
-
-ul.breadcrumb-menu li {
-  margin-right: 5px;
-}
-
-ul.breadcrumb-menu li+li:before {
-  padding: 2px;
-  color: var(--text-color);
-  content: "/\00a0";
-}
-
-ul.breadcrumb-menu li a {
-  text-decoration: none; 
-}
-
-
-ul.breadcrumb-menu li:first-child {
-  width: auto; 
-  border: 2px solid var(--primary-color);
-  border-radius: 80px;
-  justify-content: left;
-  padding-left: 10px;
-  padding-right: 10px;
-  align-items: center;
-  display: flex;
-  height: 40px;
-}
-
-ul.breadcrumb-menu li:first-child:hover{
-  transform: scale(1.05);
-  transition: transform 0.1s ease;
-}
-
-@media only screen and (max-width: 450px) {
-  
-  ul.breadcrumb-menu {
-    list-style: none;
-    display: block;
-    width: 150px;
-  }
-
-  ul.breadcrumb-menu li:first-child {
-    margin-bottom: 10px;
-  }
-
-
-}
-/************* Homepage Word List *************/
-#home-page {
-  background-color: #979797;
-}
-
-.intro-text {
-  font-family: 'MyFont';
-  font-size: 22px;
+  min-width: 220px;
+  width: 30%;
+  flex-shrink: 0;
+  flex-direction: column;
+  border-right: solid 2px var(--primary-color);
+  font-weight: 900;
+  color: var(--primary-color); 
+  padding: 0 24px 0 24px;
 }
 
 .button-list {
   display: flex;
-  margin-top: 10px;
-  gap: 20px;
-  width: 100%;
+  flex-direction: column;
 }
 
 .home-button {
-  font-family: myFont;
+  font-family: 'MyFont';
+  color: var(--primary-color);
   text-decoration: none;
-  font-size: 100px;
-  padding: 0px 20px 0px 20px;
-  border: 2px solid var(--primary-color);
-  border-radius: 100px;
-  transition: transform 0.1s ease;
-}
-
-.home-button:hover{
-  transform: scale(1.1);
-}
-
-
-#navigation-to-galleries {
-  display: block;
-  padding-top: 5px;
-  position: absolute;
-  max-width: 100%;
-}
-
-
-.words dt {
-  font-family: 'MyFont';
-  font-size: 2rem;
-  margin-top: 20px;
-  border-radius: 10px; 
-}
-.words dd { 
-  font-family: 'MyFont';
-  font-size: 22px;
-  text-align: left;
-  display: block;
-  width: 85%;
-  padding-bottom: 5px;
-  padding-top: 3px;
-}
-
-@media only screen and (max-width: 600px) {
-  /* for phones */
-  .words dt {
-    font-size: 11vw;
-    max-width: 100%;
-    }
-}
-
-/************* About Page *************/
-
-#about-page {
-  height: 100%;
-}
-
-.about-text {
-  font-family: 'MyFont';
-  font-size:8vh;
-  text-align: justify;
-  margin: auto 0;
-  margin-top: 30px;
-  word-break: break-all;
-}
-
-.palabras-julio {
   font-size: 20px;
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--line-color);
+  transition: color 0.1s;
+}
+.time {
   font-family: 'MyFont';
-  word-break: break-all;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 20px;
+  padding-bottom: 2px;
+  font-style: italic;
+  margin: 0;
+  margin-top: 26px;
+border-bottom: 2px dashed var(--line-color);}
+
+.home-button#last {
+  border-bottom: none; 
 }
 
-#subm-text {
+.home-button#bottom {
+  margin-top: 26px;
+  border-bottom: none; 
+}
+#current {
+border-bottom: none;}
+
+#past {
+  margin-top: 24px;
+}
+.home-button:hover {
+  color: var(--hover-color);
+}
+
+
+
+/************* Right Container *************/
+
+.right-side {
+  flex-grow: 1; 
+  overflow-y: auto; 
+  padding: 0px 0 0px 24px;
+}
+
+/* Typography Styles */
+.body-text {
   font-family: 'MyFont';
-  font-size: 20vh;
-  text-align: justify;
-  margin: auto;
-  word-break: break-all;
+  font-size: 18px;
+  letter-spacing: -0.25px;
 }
 
-#subm-subtext {
+.project-title {
   font-family: 'MyFont';
-  font-size: 18pt;
-  text-align: justify;
-  margin: 5px;
-  border: solid black 2px;
-  word-break: break-word;
-  overflow: wrap;
-  bottom: 0px;
+  font-size: 28px;
+  letter-spacing: -0.25px;
+    margin-top: 24px;
 }
 
-.footer-content {
-  height: 12px;
+.project-h3 {
   font-family: 'MyFont';
-  font-size: 12pt;
-  text-align: right;
-  margin-top: 50px;
-  margin-bottom: 0px;
+  font-weight: bolder;
+  font-size: 20px;
+  letter-spacing: -0.25px;
+  margin-top: 24px;
+  border-bottom: var(--line-color) solid 2px;
+  margin-right: 18px;
 }
 
-
-@media only screen and (max-width: 600px) {
-  /* for phones */
-  .about-text {
-    font-family: 'MyFont';
-    font-size: 2.2rem;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-  /* for phones */
-    #submission-page {
-  max-height: 100%;
-  }
-  #subm-text {
-    font-family: 'MyFont';
-    font-size: 5.8rem;
-    }
-}
-
-/************* Footer *************/
-
-footer {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left:0;
-  width: 100%;
-  background-color: white;
-  position: absolute;
-  height: 2.5rem;
-  margin-bottom: 5px;
-  margin-right: 40px;
+.intro-text {
   font-family: 'MyFont';
-  font-size: 12pt;
-  text-align: right;
+  font-size: 28px;
+  letter-spacing: -0.25px;
+  margin-top: 24px;
+}
 
+.tag {
+  font-family: 'MyFont';
+  font-size: 14px;
+  letter-spacing: -0.15px;
+  font-weight: bolder;
+  padding: 4px 8px 4px 8px;
+  border-radius: 22px;
+  width: fit-content;
+  flex-basis: 10px;
+  margin: 0;
+  background-color: black;
+  color: white;
+    height: 25px;
+
+}
+
+
+.tag#title {
+  background-color: transparent;
+  color: black;
+  padding: 0;
+  font-size: 16px;
+      height: 25px;
+
+}
+#tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;  
+  row-gap: 8px;
+  margin-bottom: 20px;}
+
+
+/************* Hiding and Showing *************/
+
+
+.page-content {
+    display: none;
+}
+.page-content:target {
+    display: block;
+}
+.page-content:not(:target) {
+    display: none;
 }
