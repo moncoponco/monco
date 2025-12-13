@@ -1,0 +1,116 @@
+A User-Centered Approach To Redesigning The Membership Experience On The New York Transit Museum's Webpage
+
+UX Research and Prototyping
+
+January - May 2023
+
+The New York Transit Museum, located in Brooklyn, is dedicated to showcasing the rich history of public transportation. As an independent division under the Metropolitan Transportation Authority, the museum relies on the generosity of donations and memberships to sustain its operations and fulfill its mission. ‍We worked with the New York Transit Museum to better their information architecture, with a particular focus on optimizing three key aspects of their website: membership, events, and ticketing. Within our project team, our specific focus honed in on enhancing the membership experience for users. Thorough research process grounded on the design thinking process, we delved into understanding user needs, leading to the development of a streamlined membership and member's event sign-up process. The goal was to elevate user experience and foster increased engagement with the museum's offerings.The results were a set of recommendations grounded in research insights and a comprehensive redesign of the museum's information architecture, presenting our vision through both mobile and desktop high-fidelity prototypes. This initiative not only aimed to meet the immediate needs of the New York Transit Museum but also sought to create an online environment that would resonate with visitors and members alike, ensuring a seamless and enriched experience.
+
+
+We began our project by empathizing with perspective and ongoing membership holders. Our goals were to identify the key factors that attract users to join a membership, examine the role of the website in promoting a membership program and assess the utilization of benefits by members once they join a membership program. Through 6 user interviews, we gathered valuable qualitative data displayed using an affinity diagram. This information was then used to draft a persona and extract key insights (see below) to guide our design process. 
+
+"I like their collections. I knew I would keep going back for both the permanent collection and for exhibitions, and I felt good about contributing money to those organisations."
+
+The main motivations for membership holders to pay a membership:
+‍Pricing is among the main factors for membership sign-up and retention, often calculated in comparison to regular entry ticket/access. (6/6 mentioned)
+Participants mentioned feeling like they have a positive impact by giving money to the institution, building a sense of belonging. (3/6)
+‍Two interviewer's unicorn wish was a membership pass allowing them to visit multiple museums in their region. (2/6)
+
+
+The NYTM's website had previously been worked on by different designers and programs, resulting in an inconsistent information structure. Prior to focusing on improving the membership experience, we crafted a new site map to unravel the rich content on the site, including practical information for visitors, articles about the museum's collection, and sign-up processes for members and educators.Even though our primary focus was not on the membership experience at this stage, we consistently asked ourselves: How did our persona resonate with how the museum was communicating their offerings and opportunities to page visitors?
+
+We modified the wording for existing labels to create 40 digital cards and conducted 7 unmoderated card sorting studies. The study produced a median of 8 categories per user. Comparing the results, we observed a priority for function-based categorisation, and a preference for simple and familiar labels. We thus decided on 7 categories: Visit, Calendar, Exhibitions, Shop, Explore, Learn & Teach, Join & Support; and moved About Us to the footer site map. As for the second tier, users had issues sorting sections with niche nomenclature, such as "The Story of Elizabeth Jennings Graham."
+
+Working for a museum's page, we gave importance to industry standards and created a comprehensive competitive analysis on 8 direct and 1 indirect competitors, focusing our criteria on our persona's museum visit and membership program experience. We asked: If Sarah wants to visit a history museum in New York this weekend, where would she go considering NYTM as an option? We were especially attentive to the navigation bar layout, nomenclature and information display. One of the major takeaways on the side of the membership experience was the use of accordions to display multiple levels of membership, taking the American Museum of National History as inspiration for our membership information page.
+
+We began our design phase with two user flows that concern members. With each, we determined tasks, created user flows and workshopped sketch solutions keeping in mind our key insights in our previous user studies.
+As a museum visitor, I want to know about the membership benefits so that I can decide if I want to become a member of NY Transit Museum
+As a museum visitor, I want to sign up for a membership so that I can enjoy the benefits of being a member.
+
+Tasks:1. Find out what events are coming up2. Read more about the details about the event3. Register for the event (Add Tickets & Visitor Info)4. Register for the event5. Pay for the event6. Save the ticket and event details in my calendar
+
+User Flow #2: Member Sign Up to NYTM Events
+As a member of NYTM, I want to check the calendar for upcoming events so that I can register for a members-only event.
+Tasks:1. Find out the benefits of being a member2. Compare different levels of membership and decide which is the best.3. Fill out membership information4. Pay for membership
+
+
+
+
+a) Navigation Bar: 7 primary menu items and two CTAs.
+b) Membership Types:i) Collapsible: In our competitive analysis, we found the accordion membership layout useful for displaying a wide variety of membership types.ii) Assorting by Price: According to our user interviews, price is an important deciding point, we prioritized price as a comparison point in our accordion membership levels.c) Raised the information about reciprocal benefits: In our user interviews, two users mentioned the idea of reciprocal benefits to other institutions is something they would love. Since the NYTM already has this affiliation, we thought it was important to highlight this benefit!
+d) Progress Bar: In our user testing, our users found the check out process daunting, so we added a progress bar that allows visitors to see how many steps are left.e) Overview Card: During our usability testing for the mid-fidelity prototype, we found that many users wanted information about the membership level they have selected, being assured that they selected the correct level with the benefits that fits them. In each each part of the process, you can find the  membership level name, and for the form, we included the major benefits.
+f) Collapsible Information: During our usability testing, many users were overwhelmed by the amount of information on a page. To make the page more visually welcoming, we included accordions that hide the information when it isn’t necessary. This is a fun and interactive way for the users to discover additional information.g) Upcoming dates: Looking at the existing page, many of the events hosted by the NYTM are sold out, yet they repeat several times per month. To make it easier for users to sign up an event they are interested in, we included other possible dates on the event information page.
+h) Grid and Calendar view.i) Calendar Filters: On the calendar page, users are presented with a variety of filters containing multiple options, such as Categories, Locations, and Featured Events, that enable them to precisely locate the information they are seeking.
+
+
+
+
+
+Design Contractor
+November 2024- April 2025 (5 months)
+
+Brought clarity to complexity by leading a full redesign of Glacier Grid’s fragmented design system during their transition to UI 2.0. My role focused on consolidating work from multiple previous designers into a unified, easy-to-use component library aligned with engineering standards. I redefined color roles (moving away from layered transparencies), streamlined components from Storybook, and rebuilt the system using Tailwind CSS definitions to match front-end practices. This project required harmonizing three conflicting sources of truth into one simplified, non-designer-friendly design toolkit—transforming a system the team was hesitant to touch into a cornerstone of their new UI strategy.
+
+
+Led the complete consolidation and redesign of Glacier Grid's design system for their UI 2.0 launch. I unified three conflicting sources, streamlined existing Storybook components, and transitioned the system to Tailwind CSS definitions to create a single, engineering-aligned, simplified design core.
+
+As the Product Development Lead (Artist Vertical) and Marketing Manager, I drove the product vision and artist acquisition strategy for MUSA, a platform that bypassed traditional galleries by connecting emerging artists directly with local venues for exhibitions and pop-up events. I led the development and refinement of two MVP iterations (V1 and V2), focusing on solving artist pain points through features like a simplified application flow and the Artist Dashboard. Over two years, I scaled the community to 250+ Bay Area artists and 20 venues, facilitating over 200 successful events and fostering local artistic exposure.
+
+
+MUSA  bridged the gap between emerging artists and their local communities by facilitating pop-up events and exhibitions at local venues through its platform. I joined the founders in its early stages in 2019 and worked on developing two MVP iterations and a V2 increment. Over the course of two years, including the pandemic, MUSA grew into a vibrant community of 250+ Bay Area artists and 20 venues and organizations. Through the platform, we enabled over 200 successful events, connecting artists with their local communities and providing valuable exposure and opportunities for emerging talent.As the product development lead on the artists' side, I was responsible for ideation, validation and refinement of the company's product for the artists; along with structuring and managing the marketing strategy for artist acquisition and retention. This project was my introduction into product design, although I had no formal training, it grew a passion for finding digital solutions for local communities. For the purpose of brevity in this case study, I will focus on issues we found in v1 and solutions we integrated to v2.
+
+
+The hypothesis started with two graduate student's (my two co-founders) capstone project on emerging artists. Through interviews and desktop research, they found that many artists were unable to display and sell their art due to gallery gatekeepers-- bottlenecking artist's success. One issue within the artist's journey to success is that there isn't enough space for artists to display their art and gain exposure outside of galleries. Thus the artist was discouraged, had to work more and had less free time to dedicate to their creative endeavour. 
+
+"The opportunity is very valuable. As I have the opportunity to network with people, get others to see my work and sell my work. The more I show the more I can put myself out there." -Artist interviewed
+
+We thought of the problem as space: how could we create more space? The opportunity we found was in opening the doors for artists to local cafes, bars, hair salons, dispensaries, co-working spaces, conference centers, restaurants, beer gardens... the list goes on. These spaces were eager to connect to their local community after the pandemic-- the more attention they got, the better their sales-- and they did not rely on the art itself to make a living, unlike galleries. Thus the gates opened.
+
+Wants to showcase their art locally,they have the art but‍they don't have a place to showcase their art. 
+Wants to gain visibility in their community,they have the space to host butthey don't have the knowledge or time to deal with the backend of hosting.
+Wants to discover the local art community,they have the interest to see art but they don't have the reach to know where to find it.
+
+Pop-up Events
+Temporary events that took the form of booths, where artists represent their artwork for the duration. These were open to a diversity of artists that included traditional visual artists, along with craftspeople and musicians. For this type of event, we had to make sure that artists had the information they needed regarding time, set-up protocol, and offering.
+
+Exhibitions
+Month-long (or longer) showcasing of artworks at local venues. In general, these were limited to artists with either wall-hanging offerings or sculptures. Each venue has a different layout, thus we had to make sure that the artists received information regarding dimensions, wall-hanging specifications and set up / set down dates.
+
+
+Artwork tags
+One of the value propositions of MUSA is to create tags for upcoming shows. These tags include information on the artist, title and price; and a QR code for audience members to purchase the artwork.
+
+The V1 MVP was done with CMS for website building, which had its limitation. But this process helped us test different propositions quickly and affordably. For the V2, we hired a web dev team in Peru. I worked closely with them for 5 months to create what would be MUSA. In this process, we added the features based on feedback, workshops and check-ins that I conducted regularly with artists and staff.
+
+
+Application Process
+MUSA simplifies the application process for artists by allowing them to easily apply to art events with just one click. This is possible with the user profiles that contain the artist's links and artworks, thus helping both the curators (MUSA team) and audience members see their work.
+
+Once an event is confirmed with an artist, there are multiple details regarding the event set up, space, hours, directions and so on. Thus we created an artist dashboard with upcoming event tiles that let the artist check on details for their upcoming event.
+
+This project lasted two years, and after I left the company it went onto multiple iterations. Ultimately, the business model couldn't keep afloat after the pandemic. Yet as an artist, designer and entrepreneur, I am very proud of the countless people we managed to help; and how much we were able to learn. ‍In this process, I didn't follow what I would eventually see are common protocols to design apps, yet MUSA managed to achieve a lot from our willingness to push and learn. Our attitudes grounded themselves on passion and adaptability--While we were setting up and down events in person, we wore multiple hats to achieve our goal of creating a business and helping emerging artists gain exposure. Personally, it awoke a passion for a UX framework of thinking, that jumps in and out of the digital products to create impact in our every day lives. In addition, it taught me life through the rise and fall of company needs, adapting to the pandemic and allocating resources into what we at moments considered priorities.
+
+
+
+
+
+
+
+
+Knowunity is an EdTech app with 9 million users across Europe who recently entered the US market. The platform facilitates note sharing between students, seamlessly integrating social learning in a peer to peer content sharing. At its core, a vibrant community of active and motivated users ages 8 to 17 serve as content creators and community members, fostering a collaborative learning environment.Currently, Knowunity is exploring a hypothesis: elevating engagement and fostering growth within top content-creator groups will enhance retention and engagement among regular users.Our team was consulted to run an evaluative study on content-creators, referred to as Knowers, designing solutions that will raise conversion from Knowers to Lighthouse Knowers-- Knowers with exceptionally high engagement. Through interviews and usability testing, we assessed user expectations, community integration, interface enhancements and community engagement initiatives– coming up with over 7 recommendations pertaining to discovery, subject-based content and group chats. 
+
+After a client kick-off meeting, we defined the goal of Knowunity: increasing engagement within highly engaged user groups.  The app's users are students in primary and secondary school (recently expanding to college students). The users who upload content actively are internally called Knowers, and those with the highest engagement are Lighthouse Knowers. The current metric for measuring Lighthouse Knowers within Knowunity is 100 followers, 100 members in their group chats and 50 Notes (this status or metrics is unknown to users, it acts as an internal company metric). Our project objective is to provide recommendations for the Lighthouse Knowers growth strategy by enhancing their connection with regular users– focusing on reaching the 100 followers and 100 members in their group.
+
+We segmented our research plan into two user groups, following specific criteria based on user data that Knowunity provided. It was my task to clean up this data and create a list of users to reach out to. We sought out 10 participants, 5 for regular users and 5 for Knowers and Lighthouse Knowers. Andrea and I focused on Lighthouse Knowers, I reached out to 15 participants in the data list via email, as they were highly motivated users, we knew we would have high response rates (we had 6 sign ups by EoD).‍-Lighthouse Knowers (and users on the verge of reaching Lighthouse criteria): We were interested in their motivations behind their high engagement, understanding the process in publishing, sharing and exposing their content to other users. For example, we asked about the information they put on their profile, the ways they promote their groups and notes, and other ways they connect with the community.‍- Regular Users: We were interested in the pathways and motivations for following a content creator or joining a creator's group chat -- I use the term creator here, considering the Lighthouse Knowers are creators, and it would be hard to guarantee that they would recall an experience with these. 
+
+Our findings consisted of the two user groups mentioned, in order to reconcile these, we ran multiple workshop to visualize the overarching themes each subgroup found. Pointing out the three top themes: discovery, subjects and group chats; We pieced together motivations, issues and solutions, for Knowunity.
+
+We found a divergence of the envisioned app from our clients at Knowunity and the sentiment of its users. During preliminary meetings, two representatives of the app brought up the intention to promote a cult following of Lighthouse Knowers to create a dynamic similar to social media apps. Yet in our findings, we found Lighthouse Knowers felt a strong aversion to ideas of influencers and fame. Their core value lies in fostering an “authentic community”-- one that is closer to Discord and Reddit channels.
+
+First, users value an authentic community where status doesn’t matter, thus followers are not valued like in social media apps (supporting R1). Second, it refers to an issue of exposure within the app, where there isn't a functionality that allows users to view the content shared by individuals they are following– so, why would anyone care about having followers?
+
+One of the biggest disparities we found in our two different user groups was group chats.  Lighthouse Knowers check their group chats on a daily basis (⅘), using it to find ideas, give advice and promote their content. Whereas regular users show less emphasis on individual connection through this channel, instead using it for the question section. This ultimately means that users are missing out on valuable content and learning opportunities from group chats.
+
+Users can group their notes into folders, generally arranging them by subjects. Yet notes are only a small fraction of how they interact in the app. In order to bridge the disparity, we suggested allowing for user’s to link group chats to their folders. To take one step further, Knowunity could explore the possibility of adding other’s content. Our insights revealed that Lighthouse Knowers are interested in sharing other user’s content that they find useful.
+
+Our project concluded with a presentation to Knowunity, and the outcome was highly positive. We effectively communicated numerous findings, engaging in a detailed discussion on specific topics, recommendations, and implementation strategies. Knowunity expressed eagerness to incorporate some of the recommendations in the coming months.For the next steps, I'd suggest a thorough review and mapping of the subject leader recommendation, as it has the potential for a broader redesign of the user's experience across multiple sections of the app. In terms of the Ask section and the subsequent filter feed, designing these steps will be quicker and could be validated through AB tests. However, it's important to note they will take longer to understand the effects on Knower conversion rates.One significant takeaway from this project was the valuable lesson of collaborating as a team in presenting a comprehensive research plan from two different user groups. Seeing that we divided the user groups into Andrea and I heading the Lighthouse User interviews and Charlotte and Kiyo the regular users, navigating diverse perspectives on the problems and solutions proved to be a rewarding challenge. This experience taught us to consider the bigger picture and instilled confidence in our team's advocacy for proposed solutions.
