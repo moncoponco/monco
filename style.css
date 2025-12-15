@@ -265,6 +265,31 @@ ul.breadcrumb-menu li:first-child:hover{
   word-break: break-all;
   color: var(--text-color)
 }
+
+
+
+/************* Fullpage Gallery Image *************/
+.fullpage-gallery-img {
+  max-width: 300px;
+  height: fit-content;
+  border-radius: 10px;
+  /*border: 2px solid var(--primary-color);*/
+}
+
+.fullpage-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 80vh;
+  max-width: 100vw;
+  gap: 6px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0px 12px 0px;
+  overflow-y: scroll;
+  border-radius: 10px;
+}
+
+
 /************* Horizontal Gallery Image *************/
 .horizontal-gallery-img {
   border-radius: 100px;
@@ -297,6 +322,7 @@ ul.breadcrumb-menu li:first-child:hover{
   overflow-x: scroll;
   gap: 30px;
   height: 80vh;
+  margin: 12px 0px 12px 0px;
 }
 
 
