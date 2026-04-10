@@ -2,9 +2,11 @@
 // alphabetic ordering of index
 document.addEventListener("DOMContentLoaded", function () {
     const sectionsList = document.querySelectorAll(".words dt");
-  
+
+    if (!sectionsList.length) return;
+
     const sectionsArray = [];
-  
+
     sectionsList.forEach(function (section) {
       const name = section.innerText;
       const description = section.nextElementSibling.innerText;
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateBreadcrumbMenu() {
     const currentPageName = getCurrentPageName();
     const currentPageSpan = document.getElementById('current-page-name');
-    currentPageSpan.textContent = currentPageName.toUpperCase();
+    if (currentPageSpan) currentPageSpan.textContent = currentPageName.toUpperCase();
   }
   
   document.addEventListener('DOMContentLoaded', updateBreadcrumbMenu);
