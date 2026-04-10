@@ -33,7 +33,7 @@
   const FIG_Z     =  0.5;
   const FIG_SCALE =  0.68;
   const FIG_X     =  2.2;
-  const LIGHT_X   =  3.5;
+  const LIGHT_X   =  5.0;
   const SPHERE_R  =  2.2;
   const SPHERE_CY =  0.9;
   const SPHERE_CZ = -2.8;
@@ -52,7 +52,7 @@
   });
 
   // ── Main scene ─────────────────────────────────────────────────────────────
-  const scene   = new THREE.Scene();
+  const scene = new THREE.Scene();
   const bodyMat = new THREE.MeshLambertMaterial({ color: 0xfafaf8 });
 
   function makeLimb(ax, ay, az, bx, by, bz, r) {
@@ -100,28 +100,35 @@
   figLeft.scale.setScalar(FIG_SCALE);
   scene.add(figLeft);
 
-  // Sphere — shadows wrap around it like eyes on a face
+  // Sphere — image mapped, shadows cast eye shapes on the surface
+  const sphereTex = new THREE.TextureLoader().load('images/fotos/urraca-flopi-sphere.jpg');
+  sphereTex.wrapS   = THREE.ClampToEdgeWrapping;
+  sphereTex.wrapT   = THREE.ClampToEdgeWrapping;
+  sphereTex.repeat.set(1.5, 1);
+  sphereTex.offset.set(-0.25, 0);
   const head = new THREE.Mesh(
     new THREE.SphereGeometry(SPHERE_R, 128, 128),
-    new THREE.MeshLambertMaterial({ color: 0xede9e0 })
+    new THREE.MeshLambertMaterial({ map: sphereTex, color: 0xffffff })
   );
   head.position.set(0, SPHERE_CY, SPHERE_CZ);
+  head.rotation.y = 4.385;
+  head.rotation.x = 0;
   head.receiveShadow = true;
   scene.add(head);
 
   // ── Lighting ───────────────────────────────────────────────────────────────
-  scene.add(new THREE.AmbientLight(0xffffff, 0.15));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.28));
 
   function makeSpot(x) {
-    const s = new THREE.SpotLight(0xfffbe8, 4.5);
+    const s = new THREE.SpotLight(0xfffbe8, 9.0);
     s.position.set(x, 1.2, 3.5);
-    s.target.position.set(x * 0.3, 0.9, FIG_Z);  // aimed through figure toward sphere face
-    s.angle      = Math.PI / 7;
-    s.penumbra   = 0.22;
+    s.target.position.set(x * 0.1, 0.9, SPHERE_CZ * 0.5); // aimed through figure deep toward sphere
+    s.angle      = Math.PI / 5;
+    s.penumbra   = 0.18;
     s.castShadow = true;
     s.shadow.mapSize.set(2048, 2048);
-    s.shadow.camera.near = 1;
-    s.shadow.camera.far  = 12;
+    s.shadow.camera.near = 0.5;
+    s.shadow.camera.far  = 16;
     scene.add(s, s.target);
     return s;
   }
@@ -196,12 +203,26 @@
   const dofCamera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
   dofScene.add(new THREE.Mesh(dofGeo, dofMat));
 
-  // ── Mouse: lights drift up/down together, stay at their x positions ────────
+  // ── Mouse: lights drift + right-click drag rotates sphere ─────────────────
   const mouse = { x: 0.5, y: 0.5 };
+  let dragging = false, lastDragX = 0, lastDragY = 0;
+
   window.addEventListener('mousemove', e => {
     mouse.x = e.clientX / window.innerWidth;
     mouse.y = e.clientY / window.innerHeight;
+    if (dragging) {
+      const dx = e.clientX - lastDragX;
+      const dy = e.clientY - lastDragY;
+      head.rotation.y += dx * 0.01;
+      head.rotation.x += dy * 0.01;
+      lastDragX = e.clientX;
+      lastDragY = e.clientY;
+      console.log('[sphere] rotation.y:', head.rotation.y.toFixed(3), '  rotation.x:', head.rotation.x.toFixed(3));
+    }
   });
+  window.addEventListener('contextmenu', e => e.preventDefault());
+  window.addEventListener('mousedown',  e => { if (e.button === 2) { dragging = true; lastDragX = e.clientX; lastDragY = e.clientY; }});
+  window.addEventListener('mouseup',    e => { if (e.button === 2)   dragging = false; });
 
   const baseY    = 1.2;
   const baseCam  = { x: 0, y: 0.9, z: 4.5 };
