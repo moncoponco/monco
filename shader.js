@@ -246,14 +246,24 @@
   window.addEventListener('mousedown',  e => { if (e.button === 2) { dragging = true; lastDragX = e.clientX; lastDragY = e.clientY; }});
   window.addEventListener('mouseup',    e => { if (e.button === 2)   dragging = false; });
 
-  // Touch: single finger moves lights, limited range
-  window.addEventListener('touchmove', e => {
-    const touch = e.touches[0];
-    mouse.x = touch.clientX / window.innerWidth;
-    mouse.y = touch.clientY / window.innerHeight;
+  // Touch: drag accumulates offset so light moves relative to where you drag
+  let lastTouchX = 0, lastTouchY = 0;
+  window.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    lastTouchX = t.clientX;
+    lastTouchY = t.clientY;
     lastMouseTime = performance.now();
   }, { passive: true });
-  window.addEventListener('touchstart', () => { lastMouseTime = performance.now(); }, { passive: true });
+  window.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    const dx = (t.clientX - lastTouchX) / window.innerWidth;
+    const dy = (t.clientY - lastTouchY) / window.innerHeight;
+    mouse.x = Math.max(0, Math.min(1, mouse.x + dx * 2));
+    mouse.y = Math.max(0, Math.min(1, mouse.y + dy * 2));
+    lastTouchX = t.clientX;
+    lastTouchY = t.clientY;
+    lastMouseTime = performance.now();
+  }, { passive: true });
 
   const baseY  = 1.2;
   const lookAt = new THREE.Vector3(0, SPHERE_CY, SPHERE_CZ);
