@@ -137,8 +137,13 @@ ul.breadcrumb-menu li a.active {
 
 @media only screen and (max-width: 600px) {
   .navigation {
-    margin-top: 16px;
-    margin-left: 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 16px;
+    z-index: 1000;
   }
 
   ul.breadcrumb-menu {
@@ -158,6 +163,11 @@ ul.breadcrumb-menu li a.active {
 
   #cosas-main {
     gap: 16px;
+    padding-top: 180px;
+  }
+
+  #about-page {
+    padding-top: 180px;
   }
 }
 /************* Homepage Word List *************/

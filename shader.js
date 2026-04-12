@@ -255,15 +255,16 @@
     lastMouseTime = performance.now();
   }, { passive: true });
   window.addEventListener('touchmove', e => {
+    e.preventDefault(); // stop page scroll so drag only moves the light
     const t = e.touches[0];
     const dx = (t.clientX - lastTouchX) / window.innerWidth;
     const dy = (t.clientY - lastTouchY) / window.innerHeight;
-    mouse.x = Math.max(0, Math.min(1, mouse.x + dx * 2));
-    mouse.y = Math.max(0, Math.min(1, mouse.y + dy * 2));
+    mouse.x = Math.max(0, Math.min(1, mouse.x + dx * 4));
+    mouse.y = Math.max(0, Math.min(1, mouse.y + dy * 4));
     lastTouchX = t.clientX;
     lastTouchY = t.clientY;
     lastMouseTime = performance.now();
-  }, { passive: true });
+  }, { passive: false });
 
   const baseY  = 1.2;
   const lookAt = new THREE.Vector3(0, SPHERE_CY, SPHERE_CZ);
