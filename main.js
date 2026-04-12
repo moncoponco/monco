@@ -41,16 +41,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getCurrentPageName() {
     const urlPath = window.location.pathname;
-    const currentPage = urlPath.split('/').pop().split('.html')[0];
-    return currentPage;
+    const file = urlPath.split('/').pop();
+    return file ? file.split('.html')[0] : 'index';
   }
-  
+
   function updateBreadcrumbMenu() {
     const currentPageName = getCurrentPageName();
-    const currentPageSpan = document.getElementById('current-page-name');
-    if (currentPageSpan) currentPageSpan.textContent = currentPageName.toUpperCase();
+    document.querySelectorAll('.breadcrumb-menu a[data-page]').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === currentPageName);
+    });
   }
-  
+
   document.addEventListener('DOMContentLoaded', updateBreadcrumbMenu);
   window.onpopstate = updateBreadcrumbMenu;
+
+  // ── Page transition: blink (lid down, lid up) ──────────────────────────────
+  const overlay = document.createElement('div');
+  overlay.id = 'page-overlay';
+  // Inline styles guarantee covering on the very first paint, before CSS is computed
+  overlay.style.cssText = 'position:fixed;inset:0;background:#000;z-index:99999;pointer-events:none;';
+  document.body.insertBefore(overlay, document.body.firstChild);
+
+  // Page load: start covering, lid retracts upward (curved edge sweeps up)
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    overlay.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+    overlay.style.transform = 'translateY(calc(-100% - 90px))';
+  }));
+
+  // Click: lid drops down (curved edge sweeps down), then navigate
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a');
+    if (!a || a.target === '_blank' || !a.href || a.href.startsWith('javascript')) return;
+    e.preventDefault();
+    const href = a.href;
+    overlay.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 1, 1)';
+    overlay.style.transform = 'translateY(0)';
+    const nav = () => { window.location.href = href; };
+    overlay.addEventListener('transitionend', nav, { once: true });
+    // Fallback in case transitionend doesn't fire
+    setTimeout(nav, 400);
+  });
   

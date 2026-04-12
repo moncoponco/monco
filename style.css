@@ -21,13 +21,13 @@ body {
   min-height: 100%;
   padding-bottom: 6rem;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: #f0ece4;
   display: flex;
   position: relative;
 }
 
 
-main {
+main {s
   padding-bottom: 5px;
   min-height: 100%;
   flex: 1;
@@ -41,7 +41,7 @@ main {
   --hover-color: rgb(0, 179, 255);
   --accent-color: #c1c1c1;
   --text-color: #000000;
-  --background-color: #ffffff;
+  --background-color: #f0ece4;
 }
 
 
@@ -58,6 +58,31 @@ a:hover {
 
 a:active {
     color: var(--text-color);
+}
+
+/********* Page Transition *********/
+
+#page-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  z-index: 99999;
+  transform: translateY(0);
+  pointer-events: none;
+  overflow: visible;
+}
+
+#page-overlay::after {
+  content: '';
+  position: absolute;
+  bottom: -45px;
+  left: -5%;
+  width: 110%;
+  height: 90px;
+  background: #000;
+  border-radius: 50%;
 }
 
 /********* Navigation Bar *********/
@@ -83,35 +108,31 @@ ul.breadcrumb-menu {
 }
 
 ul.breadcrumb-menu li {
-  margin-right: 5px;
-}
-
-ul.breadcrumb-menu li+li:before {
-  padding: 2px;
-  color: var(--text-color);
-  content: "/\00a0";
+  padding: 0 14px;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 ul.breadcrumb-menu li a {
-  text-decoration: none; 
+  text-decoration: none;
 }
 
-
-ul.breadcrumb-menu li:first-child {
-  width: auto; 
-  justify-content: left;
-  padding-left: 10px;
-  padding-right: 10px;
-  align-items: center;
-  display: flex;
-  height: 40px;
+ul.breadcrumb-menu li a:hover {
+  text-decoration: underline;
 }
 
-ul.breadcrumb-menu li:first-child:hover{
-  transform: scale(1.02);
-  transition: transform 0.1s ease;
-  font-weight: bolder;
-  
+ul.breadcrumb-menu li a.active {
+  text-decoration: underline;
+}
+
+.ext-icon {
+  width: 0.6em;
+  height: 0.6em;
+  vertical-align: middle;
+  position: relative;
+  top: -0.1em;
+  margin-left: 3px;
 }
 
 @media only screen and (max-width: 450px) {
@@ -160,8 +181,6 @@ main {
   z-index: 100;
   margin: 10px 10px 10px 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .intro-text {
@@ -178,17 +197,14 @@ main {
 .home-button {
   font-family: myFont;
   text-decoration: none;
-  font-size: 55px;
+  font-size: 32px;
   padding: 0px 20px 0px 20px;
-  border: 2px solid var(--primary-color);
   border-radius: 100px;
 }
 
 .home-button:hover {
-  transform: scale(1.2);
-  transition: transform 0.1s ease-in-out;
-  backdrop-filter: blur(2px);
-  background-color: rgba(0, 0, 0, 0.07);
+  transition: transform 0.5s ease-in-out;
+  text-decoration: underline;
 }
 
 
@@ -200,26 +216,21 @@ main {
 }
 
 
-.words dt {
-  font-family: 'MyFont';
-  font-size: 2rem;
-  margin-top: 20px;
-  border-radius: 10px; 
-}
-.words dd { 
-  font-family: 'MyFont';
-  font-size: 22px;
-  text-align: left;
-  padding-bottom: 5px;
-  padding-top: 3px;
-}
-
 @media only screen and (max-width: 600px) {
   /* for phones */
   .words dt {
     font-size: 11vw;
     max-width: 100%;
     }
+}
+
+/************* Cosas Page *************/
+
+#cosas-main {
+  height: auto;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
 }
 
 /************* About Page *************/
