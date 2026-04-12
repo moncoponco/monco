@@ -27,7 +27,7 @@ body {
 }
 
 
-main {s
+main {
   padding-bottom: 5px;
   min-height: 100%;
   flex: 1;
@@ -135,19 +135,30 @@ ul.breadcrumb-menu li a.active {
   margin-left: 3px;
 }
 
-@media only screen and (max-width: 450px) {
-  
+@media only screen and (max-width: 600px) {
+  .navigation {
+    margin-top: 16px;
+    margin-left: 16px;
+  }
+
   ul.breadcrumb-menu {
-    list-style: none;
-    display: block;
-    width: 150px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
   }
 
-  ul.breadcrumb-menu li:first-child {
-    margin-bottom: 10px;
+  ul.breadcrumb-menu li {
+    height: auto;
+    padding: 5px 10px;
   }
 
+  .single-gallery {
+    height: 50vh;
+  }
 
+  #cosas-main {
+    gap: 16px;
+  }
 }
 /************* Homepage Word List *************/
 
