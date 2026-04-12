@@ -44,11 +44,9 @@
   function updateCamera() {
     const aspect = window.innerWidth / window.innerHeight;
     camera.aspect = aspect;
-    // Portrait: pull back so sphere stays in frame (scales with 1/aspect)
-    // Landscape: use baseline z=4.5
-    baseCam.z = aspect < 1 ? 4.5 / aspect : 4.5;
-    // Also open up FOV slightly on very narrow screens so it doesn't feel cramped
-    camera.fov = aspect < 1 ? Math.min(52 / aspect, 88) : 52;
+    // Portrait: less aggressive pullback so sphere stays large on screen
+    baseCam.z = aspect < 1 ? 3.2 / aspect : 4.5;
+    camera.fov = aspect < 1 ? Math.min(58 / aspect, 90) : 52;
     camera.position.set(baseCam.x, SPHERE_CY, baseCam.z);
     camera.lookAt(0, SPHERE_CY, SPHERE_CZ);
     camera.updateProjectionMatrix();
@@ -62,6 +60,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     target.setSize(PX(), PY());
     dofU.uResolution.value.set(PX(), PY());
+    updateDof();
   });
 
   // ── Main scene ─────────────────────────────────────────────────────────────
@@ -169,6 +168,14 @@
     uResolution: { value: new THREE.Vector2(PX(), PY()) },
   };
 
+  function updateDof() {
+    const isMobile = window.innerWidth < window.innerHeight;
+    dofU.uFocalDist.value  = baseCam.z - SPHERE_CZ; // always track actual cam→sphere distance
+    dofU.uFocalRange.value = isMobile ? 3.0 : 1.0;  // wider in-focus band on mobile
+    dofU.uBlurMax.value    = isMobile ? 5.0 : 14.0; // much less blur on mobile
+  }
+  updateDof();
+
   const dofMat = new THREE.ShaderMaterial({
     uniforms: dofU,
     vertexShader: `void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }`,
@@ -239,6 +246,15 @@
   window.addEventListener('mousedown',  e => { if (e.button === 2) { dragging = true; lastDragX = e.clientX; lastDragY = e.clientY; }});
   window.addEventListener('mouseup',    e => { if (e.button === 2)   dragging = false; });
 
+  // Touch: single finger moves lights, limited range
+  window.addEventListener('touchmove', e => {
+    const touch = e.touches[0];
+    mouse.x = touch.clientX / window.innerWidth;
+    mouse.y = touch.clientY / window.innerHeight;
+    lastMouseTime = performance.now();
+  }, { passive: true });
+  window.addEventListener('touchstart', () => { lastMouseTime = performance.now(); }, { passive: true });
+
   const baseY  = 1.2;
   const lookAt = new THREE.Vector3(0, SPHERE_CY, SPHERE_CZ);
   const camCur   = { x: baseCam.x, y: baseCam.y };
@@ -266,21 +282,17 @@
     const blendX = mouseActive * (mouse.x - 0.5) + (1 - mouseActive) * idleX;
     const blendY = mouseActive * (mouse.y - 0.5) + (1 - mouseActive) * idleY;
 
-    const ty = baseY + blendY * -1.2;
-    const tx = blendX * 0.8;
+    const isMobile = window.innerWidth < window.innerHeight;
+    const ty = baseY + blendY * (isMobile ? -1.0 : -2.5);
+    const tx = blendX * (isMobile ? 0.8 : 2.0);
 
     [spotR, spotL].forEach(s => {
       const baseX = s === spotR ? LIGHT_X : -LIGHT_X;
-      s.position.x += (baseX + tx - s.position.x) * 0.06;
-      s.position.y += (ty        - s.position.y) * 0.06;
+      s.position.x += (baseX + tx - s.position.x) * 0.05;
+      s.position.y += (ty        - s.position.y) * 0.05;
     });
 
-    // camera drift — ±0.7 x, ±0.45 y, always looking at same point
-    const camTX = blendX * 0.9;
-    const camTY = SPHERE_CY + blendY * -0.45;
-    camCur.x += (camTX - camCur.x) * 0.07;
-    camCur.y += (camTY - camCur.y) * 0.07;
-    camera.position.set(camCur.x, camCur.y, baseCam.z);
+    camera.position.set(baseCam.x, baseCam.y, baseCam.z);
     camera.lookAt(lookAt);
 
     renderer.setRenderTarget(target);
