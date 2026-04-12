@@ -38,14 +38,27 @@
   const SPHERE_CY =  0.9;
   const SPHERE_CZ = -2.8;
 
-  // ── Camera: closer, looking at midpoint between the two eye shadows ────────
+  // ── Camera ─────────────────────────────────────────────────────────────────
   const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 0.9, 4.5);
-  camera.lookAt(0, 0.9, SPHERE_CZ);
+
+  function updateCamera() {
+    const aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = aspect;
+    // Portrait: pull back so sphere stays in frame (scales with 1/aspect)
+    // Landscape: use baseline z=4.5
+    baseCam.z = aspect < 1 ? 4.5 / aspect : 4.5;
+    // Also open up FOV slightly on very narrow screens so it doesn't feel cramped
+    camera.fov = aspect < 1 ? Math.min(52 / aspect, 88) : 52;
+    camera.position.set(baseCam.x, SPHERE_CY, baseCam.z);
+    camera.lookAt(0, SPHERE_CY, SPHERE_CZ);
+    camera.updateProjectionMatrix();
+  }
+
+  const baseCam = { x: 0, y: SPHERE_CY, z: 4.5 };
+  updateCamera();
 
   window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    updateCamera();
     renderer.setSize(window.innerWidth, window.innerHeight);
     target.setSize(PX(), PY());
     dofU.uResolution.value.set(PX(), PY());
@@ -117,18 +130,18 @@
   scene.add(head);
 
   // ── Lighting ───────────────────────────────────────────────────────────────
-  scene.add(new THREE.AmbientLight(0xffffff, 0.28));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.06));
 
   function makeSpot(x) {
-    const s = new THREE.SpotLight(0xfffbe8, 9.0);
+    const s = new THREE.SpotLight(0xfffbe8, 55.0);
     s.position.set(x, 1.2, 3.5);
-    s.target.position.set(x * 0.1, 0.9, SPHERE_CZ * 0.5); // aimed through figure deep toward sphere
-    s.angle      = Math.PI / 5;
-    s.penumbra   = 0.18;
+    s.target.position.set(x * 0.45, 0.9, SPHERE_CZ * 0.6); // aimed at own half of sphere
+    s.angle      = Math.PI / 9;
+    s.penumbra   = 0.12;
     s.castShadow = true;
     s.shadow.mapSize.set(2048, 2048);
     s.shadow.camera.near = 0.5;
-    s.shadow.camera.far  = 16;
+    s.shadow.camera.far  = 18;
     scene.add(s, s.target);
     return s;
   }
@@ -136,8 +149,10 @@
   const spotR = makeSpot( LIGHT_X);  // right light (outside fig) → shadow projects left → right eye
   const spotL = makeSpot(-LIGHT_X);  // left  light (outside fig) → shadow projects right → left eye
 
-  const fillLight = new THREE.DirectionalLight(0xd0dcff, 0.35);
-  fillLight.position.set(0, 2, 3);
+  // soft front fill — lights the sphere face without casting shadows
+  const fillLight = new THREE.DirectionalLight(0xfff8f0, 0.9);
+  fillLight.position.set(0, 1, 5);
+  fillLight.castShadow = false;
   scene.add(fillLight);
 
   // ── Depth-of-Field pass ────────────────────────────────────────────────────
@@ -224,28 +239,47 @@
   window.addEventListener('mousedown',  e => { if (e.button === 2) { dragging = true; lastDragX = e.clientX; lastDragY = e.clientY; }});
   window.addEventListener('mouseup',    e => { if (e.button === 2)   dragging = false; });
 
-  const baseY    = 1.2;
-  const baseCam  = { x: 0, y: 0.9, z: 4.5 };
-  const lookAt   = new THREE.Vector3(0, 0.9, SPHERE_CZ);
+  const baseY  = 1.2;
+  const lookAt = new THREE.Vector3(0, SPHERE_CY, SPHERE_CZ);
   const camCur   = { x: baseCam.x, y: baseCam.y };
+
+  let lastMouseTime = 0;
+  let mouseActive = 0; // 0 = idle, 1 = mouse-driven (lerped)
+  const clock = new THREE.Clock();
+
+  window.addEventListener('mousemove', () => { lastMouseTime = performance.now(); });
 
   function loop() {
     requestAnimationFrame(loop);
 
-    const ty = baseY + (mouse.y - 0.5) * -0.5;
-    const tx = (mouse.x - 0.5) * 0.3;
+    const t = clock.getElapsedTime();
+
+    // Fade between mouse control and idle sine wave (2s timeout)
+    const msSinceMove = performance.now() - lastMouseTime;
+    mouseActive += ((msSinceMove < 2000 ? 1 : 0) - mouseActive) * 0.02;
+    mouseActive = Math.max(0, Math.min(1, mouseActive));
+
+    // Idle: slow figure-8 / Lissajous drift
+    const idleX = Math.sin(t * 0.25) * 0.5;
+    const idleY = Math.sin(t * 0.17) * 0.5;
+
+    const blendX = mouseActive * (mouse.x - 0.5) + (1 - mouseActive) * idleX;
+    const blendY = mouseActive * (mouse.y - 0.5) + (1 - mouseActive) * idleY;
+
+    const ty = baseY + blendY * -1.2;
+    const tx = blendX * 0.8;
 
     [spotR, spotL].forEach(s => {
       const baseX = s === spotR ? LIGHT_X : -LIGHT_X;
-      s.position.x += (baseX + tx - s.position.x) * 0.04;
-      s.position.y += (ty        - s.position.y) * 0.04;
+      s.position.x += (baseX + tx - s.position.x) * 0.06;
+      s.position.y += (ty        - s.position.y) * 0.06;
     });
 
-    // subtle camera drift — ±0.18 x, ±0.10 y, always looking at same point
-    const camTX = baseCam.x + (mouse.x - 0.5) * 0.36;
-    const camTY = baseCam.y + (mouse.y - 0.5) * -0.20;
-    camCur.x += (camTX - camCur.x) * 0.05;
-    camCur.y += (camTY - camCur.y) * 0.05;
+    // camera drift — ±0.7 x, ±0.45 y, always looking at same point
+    const camTX = blendX * 0.9;
+    const camTY = SPHERE_CY + blendY * -0.45;
+    camCur.x += (camTX - camCur.x) * 0.07;
+    camCur.y += (camTY - camCur.y) * 0.07;
     camera.position.set(camCur.x, camCur.y, baseCam.z);
     camera.lookAt(lookAt);
 
