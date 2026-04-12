@@ -269,6 +269,7 @@
   const baseY  = 1.2;
   const lookAt = new THREE.Vector3(0, SPHERE_CY, SPHERE_CZ);
   const camCur   = { x: baseCam.x, y: baseCam.y };
+  const parCur   = { x: 0, y: 0 }; // smoothed parallax offset
 
   let lastMouseTime = 0;
   let mouseActive = 0; // 0 = idle, 1 = mouse-driven (lerped)
@@ -302,6 +303,20 @@
       s.position.x += (baseX + tx - s.position.x) * 0.05;
       s.position.y += (ty        - s.position.y) * 0.05;
     });
+
+    // Parallax — figures move more than sphere, creating depth separation
+    parCur.x += (blendX * 0.5 - parCur.x) * 0.04;
+    parCur.y += (blendY * 0.25 - parCur.y) * 0.04;
+
+    // Sphere: slow autonomous rotation + parallax shift
+    head.rotation.y += 0.0006;
+    head.position.x = parCur.x * 0.2;
+    head.position.y = SPHERE_CY + parCur.y * 0.15;
+
+    // Figurines shift more (near layer)
+    figRight.position.x = FIG_X  + parCur.x * 0.7;
+    figLeft.position.x  = -FIG_X + parCur.x * 0.7;
+    figRight.position.y = figLeft.position.y = 0.2 + parCur.y * 0.5;
 
     camera.position.set(baseCam.x, baseCam.y, baseCam.z);
     camera.lookAt(lookAt);
