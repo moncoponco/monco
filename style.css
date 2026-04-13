@@ -2,22 +2,20 @@
   font-family: MyFont;
   src: url("font/Graphik-Regular.otf") format('truetype');
 }
-/*béton brut and art brut*/
 
 html {
   height: 100vh;
-   box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
   box-sizing: inherit;
 }
 
 body {
-  margin: 30px;
-  max-width: 100%;
+  max-width: 100vw;
+  width: 100vw;
+  margin: 0;
   min-height: 100%;
   padding-bottom: 6rem;
   flex-direction: column;
@@ -26,38 +24,21 @@ body {
   position: relative;
 }
 
-
-main {
-  padding-bottom: 5px;
-  min-height: 100%;
-  flex: 1;
-  max-width: 100%;
-  display: block;
-}
-
-/*style definition*/
 :root {
   --primary-color: #000000;
-  --hover-color: rgb(0, 179, 255);
-  --accent-color: #c1c1c1;
   --text-color: #000000;
   --background-color: #f0ece4;
 }
 
-
 /*link styling*/
+a:link, a:visited { color: var(--text-color); }
+a:hover           { color: var(--text-color); }
+a:active          { color: var(--text-color); }
+a { -webkit-tap-highlight-color: transparent; }
 
-a:link, a:visited {
-  color: var(--text-color);
-}
-
-a:hover {
-    color: var(--text-color);
-    
-}
-
-a:active {
-    color: var(--text-color);
+.breadcrumb-menu li a:active {
+  opacity: 0.5;
+  transition: opacity 0.08s ease;
 }
 
 /********* Page Transition *********/
@@ -102,17 +83,14 @@ a:active {
   to   { opacity: 1; transform: translateY(0) rotate(0deg); filter: blur(0); }
 }
 
-@keyframes about-drift {
-  0%   { transform: none; }
-  7%   { transform: skewX(1.4deg) translateX(2px); }
-  18%  { transform: skewX(-0.5deg) translateY(-2px); }
-  30%  { transform: none; filter: blur(0.4px); }
-  43%  { transform: scaleX(1.007) skewX(0.4deg); filter: blur(0); }
-  55%  { transform: scaleX(0.997) translateX(-2px); }
-  67%  { transform: skewY(0.25deg); }
-  79%  { transform: skewX(-1deg) translateY(1px); filter: blur(0.2px); }
-  91%  { transform: skewX(0.5deg); filter: blur(0); }
-  100% { transform: none; }
+@keyframes word-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(var(--wy, -2px)) rotate(var(--wt, 0deg)); }
+}
+
+@keyframes ripple-expand {
+  from { transform: scale(0); opacity: 1; }
+  to   { transform: scale(40); opacity: 0; }
 }
 
 .about-word {
@@ -122,20 +100,15 @@ a:active {
 }
 
 .about-text {
-  animation: about-drift 13s ease-in-out 1.5s infinite;
-}
-
-@keyframes ripple-expand {
-  from { transform: scale(0); opacity: 1; }
-  to   { transform: scale(40); opacity: 0; }
+  transition: transform 0.1s linear;
 }
 
 .click-ripple {
   position: fixed;
-  width: 12px;
-  height: 12px;
-  margin-left: -6px;
-  margin-top: -6px;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(10,20,180,0.95) 0%, rgba(200,20,0,0.8) 35%, rgba(255,90,0,0.45) 60%, transparent 75%);
   z-index: 99998;
@@ -144,6 +117,7 @@ a:active {
 }
 
 /********* Navigation Bar *********/
+
 .navigation {
   font-family: 'MyFont';
   font-size: 22px;
@@ -151,7 +125,7 @@ a:active {
   justify-content: space-between;
   position: sticky;
   margin-top: 10px;
-  margin-left: 10px;
+  margin-left: 16px;
 }
 
 ul.breadcrumb-menu {
@@ -160,13 +134,14 @@ ul.breadcrumb-menu {
   display: flex;
   justify-content: left;
   align-items: center;
+  gap: 20px;
   top: 0;
   margin: 0;
-  padding: 0;  
+  padding: 0;
 }
 
 ul.breadcrumb-menu li {
-  padding: 0 14px;
+  padding: 0;
   height: 40px;
   display: flex;
   align-items: center;
@@ -213,78 +188,11 @@ ul.breadcrumb-menu li a.active::after {
   margin-left: 3px;
 }
 
-@media only screen and (max-width: 600px) {
-  .navigation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-    padding: 16px 16px 6px 16px;
-    z-index: 1000;
-    background: linear-gradient(to bottom,
-      rgba(240, 236, 228, 1) 0%,
-      rgba(240, 236, 228, 1) 60%,
-      rgba(240, 236, 228, 0) 100%);
-    pointer-events: none;
-  }
-
-  ul.breadcrumb-menu {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-    pointer-events: auto;
-  }
-
-  ul.breadcrumb-menu li {
-    height: auto;
-    padding: 5px 10px;
-  }
-
-  /* Items 2–4 collapse when scrolled away from top */
-  ul.breadcrumb-menu li:not(:first-child) {
-    max-height: 80px;
-    opacity: 1;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s ease;
-  }
-
-  .navigation.nav-collapsed ul.breadcrumb-menu li:not(:first-child) {
-    max-height: 0;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .single-gallery {
-    height: 50vh;
-  }
-
-  #cosas-main {
-    gap: 16px;
-    padding-top: 200px;
-  }
-
-  #about-page {
-    padding-top: 200px;
-  }
-}
-/************* Homepage Word List *************/
-
-
-
-/************* Layout Container (MAIN) *************/
-
-body {
-  max-width: 100vw;
-  width: 100vw;
-  margin: 0;
-}
+/********* Layout *********/
 
 #shader-bg {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
@@ -296,55 +204,17 @@ body {
 }
 
 main {
-  position:relative;
+  position: relative;
   height: 500px;
   z-index: 100;
-  margin: 10px 10px 10px 10px;
+  margin: 16px;
   display: flex;
-}
-
-.intro-text {
-  font-family: 'MyFont';
-  font-size: 22px;
-}
-
-.button-list {
-  position: relative;
-  margin-top: 20px;
-  gap: 20px;
-}
-
-.home-button {
-  font-family: myFont;
-  text-decoration: none;
-  font-size: 32px;
-  padding: 0px 20px 0px 20px;
-  border-radius: 100px;
-}
-
-.home-button:hover {
-  transition: transform 0.5s ease-in-out;
-  text-decoration: underline;
-}
-
-
-#navigation-to-galleries {
-  display: block;
-  padding-top: 5px;
-  position: absolute;
+  min-height: 100%;
+  flex: 1;
   max-width: 100%;
 }
 
-
-@media only screen and (max-width: 600px) {
-  /* for phones */
-  .words dt {
-    font-size: 11vw;
-    max-width: 100%;
-    }
-}
-
-/************* Cosas Page *************/
+/********* Cosas Page *********/
 
 #cosas-main {
   height: auto;
@@ -353,164 +223,99 @@ main {
   gap: 0;
 }
 
-/************* About Page *************/
+/********* About Page *********/
 
-#about-page {
+#about-main {
   height: 100%;
 }
 
 .about-text {
   font-family: 'MyFont';
-  font-size:6vh;
+  font-size: 6vh;
   text-align: justify;
   margin: auto 0;
   margin-top: 30px;
   word-break: break-all;
 }
 
-.palabras-julio {
-  font-size: 20px;
-  font-family: 'MyFont';
-  word-break: break-all;
-}
-
-#subm-text {
-  font-family: 'MyFont';
-  font-size: 20vh;
-  text-align: justify;
-  margin: auto;
-  word-break: break-all;
-}
-
-#subm-subtext {
-  font-family: 'MyFont';
-  font-size: 18pt;
-  text-align: justify;
-  margin: 5px;
-  border: solid black 2px;
-  word-break: break-word;
-  overflow: wrap;
-  bottom: 0px;
-}
-
-.footer-content {
-  height: 12px;
-  font-family: 'MyFont';
-  font-size: 12pt;
-  text-align: right;
-  margin-top: 50px;
-  margin-bottom: 0px;
-}
-
-
 @media only screen and (max-width: 600px) {
-  /* for phones */
   .about-text {
-    font-family: 'MyFont';
     font-size: 2.2rem;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-  /* for phones */
-    #submission-page {
-  max-height: 100%;
   }
-  #subm-text {
-    font-family: 'MyFont';
-    font-size: 5.8rem;
-    }
 }
 
-/************* Wood Page *************/
+/********* Single Gallery *********/
 
-.wood-text {
-  font-family: 'MyFont';
-  font-size: 20px;
-  text-align: justify;
-  margin: auto 0;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  word-break: break-all;
-  color: var(--text-color)
-}
-
-
-
-/************* Fullpage Gallery Image *************/
-.fullpage-gallery-img {
-  max-width: 300px;
-  height: fit-content;
-  border-radius: 10px;
-  /*border: 2px solid var(--primary-color);*/
-}
-
-.fullpage-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  max-height: 80vh;
-  max-width: 100vw;
-  gap: 6px;
-  justify-content: space-between;
-  align-items: center;
-  margin: 12px 0px 12px 0px;
-  overflow-y: scroll;
-  border-radius: 10px;
-}
-
-
-/************* Horizontal Gallery Image *************/
-.horizontal-gallery-img {
-  border-radius: 100px;
-  border: 2px solid var(--primary-color);
-}
-
-.horizontal-gallery-img:hover{
-  transform: scale(4.5);
-}
-
-.horizontal-gallery {
-  display: flex;
-  flex-direction: row;
-  height: 400px;
-  max-width: 100%;
-  overflow-x: scroll;
-  gap: 20px;
-  padding: 10px;
-}
-
-/************* Single Gallery Image *************/
 .single-gallery-img {
   flex-shrink: 0;
   aspect-ratio: initial;
 }
-
 
 .single-gallery {
   display: flex;
   overflow-x: scroll;
   gap: 30px;
   height: 80vh;
-  margin: 12px 0px 12px 0px;
+  margin: 12px 0;
 }
 
+/********* Mobile *********/
 
+@media only screen and (max-width: 600px) {
+  .navigation {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    margin: 0;
+    padding: 16px 16px 24px 16px;
+    z-index: 1000;
+    background: linear-gradient(to bottom,
+      rgba(240, 236, 228, 1) 0%,
+      rgba(240, 236, 228, 1) 85%,
+      rgba(240, 236, 228, 0) 100%);
+    pointer-events: none;
+  }
 
-/************* Footer *************/
+  .navigation.nav-collapsed {
+    padding-bottom: 12px;
+    background: linear-gradient(to bottom,
+      rgba(240, 236, 228, 1) 0%,
+      rgba(240, 236, 228, 1) 80%,
+      rgba(240, 236, 228, 0) 100%);
+  }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left:0;
-  width: 100%;
-  background-color: white;
-  position: absolute;
-  height: 2.5rem;
-  margin-bottom: 5px;
-  margin-right: 40px;
-  font-family: 'MyFont';
-  font-size: 12pt;
-  text-align: right;
+  ul.breadcrumb-menu {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    pointer-events: auto;
+  }
 
+  ul.breadcrumb-menu li {
+    height: auto;
+    padding: 5px 0;
+  }
+
+  ul.breadcrumb-menu li:not(:first-child) {
+    overflow: hidden;
+  }
+
+  /* Push content below the expanded nav */
+  #cosas-main,
+  #about-main {
+    padding-top: 165px;
+  }
+
+  .single-gallery {
+    height: 40vh;
+  }
+
+  #cosas-main {
+    gap: 16px;
+  }
+}
+
+/* Index page: no nav background on any screen size — nav floats over shader */
+body#home-page .navigation,
+body#home-page .navigation.nav-collapsed {
+  background: none;
 }

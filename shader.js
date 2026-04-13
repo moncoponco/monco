@@ -170,9 +170,11 @@
 
   function updateDof() {
     const isMobile = window.innerWidth < window.innerHeight;
-    dofU.uFocalDist.value  = baseCam.z - SPHERE_CZ; // always track actual cam→sphere distance
-    dofU.uFocalRange.value = isMobile ? 3.0 : 1.0;  // wider in-focus band on mobile
-    dofU.uBlurMax.value    = isMobile ? 5.0 : 14.0; // much less blur on mobile
+    // Focal point = sphere center, range must cover full sphere radius so
+    // the entire sphere is guaranteed in-focus at any screen dimension
+    dofU.uFocalDist.value  = baseCam.z - SPHERE_CZ;
+    dofU.uFocalRange.value = SPHERE_R + 0.6; // covers full sphere depth (2.2 + buffer)
+    dofU.uBlurMax.value    = isMobile ? 5.0 : 14.0;
   }
   updateDof();
 

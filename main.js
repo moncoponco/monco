@@ -55,12 +55,51 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener('DOMContentLoaded', updateBreadcrumbMenu);
   window.onpopstate = updateBreadcrumbMenu;
 
-  // ── Mobile nav: show all items at top, collapse to just "moncoponco" on scroll
-  window.addEventListener('scroll', () => {
+  // ── About page: scroll-driven text parallax + letter-spacing stretch ────────
+  const aboutText = document.querySelector('.about-text');
+  if (aboutText) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const parallax = y * 0.12;
+      const stretch  = Math.min(y * 0.004, 3); // max 3px extra letter-spacing
+      aboutText.style.transform    = `translateY(${-parallax}px)`;
+      aboutText.style.letterSpacing = `${stretch}px`;
+    }, { passive: true });
+  }
+
+  // ── Mobile nav: scroll-driven collapse (smooth, progress-based) ──────────────
+  document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('.navigation');
     if (!nav) return;
-    nav.classList.toggle('nav-collapsed', window.scrollY > 50);
-  }, { passive: true });
+
+    const subItems = Array.from(nav.querySelectorAll('ul.breadcrumb-menu li:not(:first-child)'));
+    if (!subItems.length) return;
+
+    // Measure natural heights after layout
+    const naturalHeights       = subItems.map(item => item.scrollHeight);
+    const naturalPaddingTops    = subItems.map(item => parseFloat(getComputedStyle(item).paddingTop));
+    const naturalPaddingBottoms = subItems.map(item => parseFloat(getComputedStyle(item).paddingBottom));
+
+    const COLLAPSE_RANGE = 70;
+
+    function applyCollapse() {
+      const progress = Math.min(Math.max(window.scrollY / COLLAPSE_RANGE, 0), 1);
+      const open = 1 - progress;
+
+      subItems.forEach((item, i) => {
+        item.style.opacity       = open;
+        item.style.maxHeight     = (open * naturalHeights[i]) + 'px';
+        item.style.paddingTop    = (open * naturalPaddingTops[i]) + 'px';
+        item.style.paddingBottom = (open * naturalPaddingBottoms[i]) + 'px';
+        item.style.pointerEvents = progress > 0.5 ? 'none' : 'auto';
+      });
+
+      nav.classList.toggle('nav-collapsed', progress > 0.5);
+    }
+
+    applyCollapse(); // set initial state
+    window.addEventListener('scroll', applyCollapse, { passive: true });
+  });
 
   // ── Nav entrance animation — first visit only ──────────────────────────────
   if (!sessionStorage.getItem('visited')) {
@@ -79,12 +118,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // ── About page: word-by-word entrance with weird drift ────────────────────
+  // ── About page: word-by-word entrance then continuous subtle float ──────────
   document.addEventListener('DOMContentLoaded', () => {
     const para = document.querySelector('.about-text');
     if (!para) return;
+
     let wordIndex = 0;
     const rotations = [-3, 2, -1.5, 3, -2.5, 1, -2, 2.5, -1, 3];
+    const spans = [];
+
     Array.from(para.childNodes).forEach(node => {
       if (node.nodeType === Node.TEXT_NODE) {
         const fragment = document.createDocumentFragment();
@@ -98,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const rot = rotations[wordIndex % rotations.length];
             span.style.setProperty('--wr', rot + 'deg');
             span.style.animationDelay = `${0.5 + wordIndex * 0.03}s`;
+            spans.push({ span, index: wordIndex });
             wordIndex++;
             fragment.appendChild(span);
           }
@@ -105,6 +148,23 @@ document.addEventListener("DOMContentLoaded", function () {
         node.parentNode.replaceChild(fragment, node);
       }
     });
+
+    // After entrance settles, each word floats independently at different rates
+    const entranceDuration = 0.5 + wordIndex * 0.03 + 0.8;
+    setTimeout(() => {
+      spans.forEach(({ span, index }) => {
+        const duration  = 2.8 + (index % 6) * 0.45;
+        const delay     = (index % 9) * 0.35;
+        const floatY    = -1.5 - (index % 4) * 0.5;
+        const tilt      = ((index % 5) - 2) * 0.3;
+        span.style.setProperty('--wy', floatY + 'px');
+        span.style.setProperty('--wt', tilt + 'deg');
+        // Must set opacity:1 first — base .about-word has opacity:0,
+        // which re-applies when the entrance animation is replaced
+        span.style.opacity = '1';
+        span.style.animation = `word-float ${duration}s ease-in-out ${delay}s infinite`;
+      });
+    }, entranceDuration * 1000);
   });
 
   // ── Click / tap ripple ─────────────────────────────────────────────────────
